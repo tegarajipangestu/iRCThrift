@@ -13,4 +13,9 @@ import java.util.List;
  */
 public class Channels {
     public static List<String> activeChannels;
+
+    public void addActiveChannel(String channel)
+    {
+        activeChannels.add(channel);
+    }
 }
