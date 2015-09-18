@@ -36,6 +36,6 @@ public class ChatClient {
 
     private static void perform(ChatService.Client client)
             throws TException {
-
+        
     }
 }

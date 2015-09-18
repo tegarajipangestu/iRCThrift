@@ -5,10 +5,12 @@
  */
 package chat;
 
+import java.util.List;
+
 /**
  *
  * @author tegar
  */
-public class Channel {
-    
+public class Channels {
+    public static List<String> activeChannels;
 }
