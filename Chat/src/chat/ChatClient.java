@@ -29,6 +29,7 @@ public class ChatClient {
             ChatService.Client client = new ChatService.Client(protocol);
             perform(client);
             transport.close();
+            while(true);
         } catch (TException x) {
             x.printStackTrace();
         }
@@ -36,6 +37,6 @@ public class ChatClient {
 
     private static void perform(ChatService.Client client)
             throws TException {
-        
+        System.out.println(client.createNickname("huli"));
     }
 }

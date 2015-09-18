@@ -15,8 +15,7 @@ import chat.ChatService;
 public class ChatHandler implements ChatService.Iface {
 
     @Override
-    public boolean createNickname(String name) throws TException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean createNickname(String name) { return true;
     }
 
     @Override
