@@ -18,14 +18,14 @@ import java.util.Random;
 public class ChatHandler implements ChatService.Iface {
     public static List<String> defaultUsernames;
     public static List<String> activeUsers;
-    public static List<String> activeChannels;
+    public static List<Channel> activeChannels;
     
     public ChatHandler() {
         defaultUsernames = new ArrayList<>(
-                Arrays.asList("Kucing", "Sapi", "Rusa","Kambing","Platipus")
+                Arrays.asList("Kucing","Sapi","Rusa","Kambing","Platipus")
         );
         activeUsers = new ArrayList<>();
-        activeChannels = new ArrayList<String>();
+        activeChannels = new ArrayList<Channel>();
     }
     
     @Override
@@ -61,9 +61,10 @@ public class ChatHandler implements ChatService.Iface {
         int i = 0;
         while (i<activeChannels.size())
         {
-            if (activeChannels.get(i).compareToIgnoreCase(channel)==0)
+            if (activeChannels.get(i).getName().compareToIgnoreCase(channel)==0)
             {
                 System.out.println(name+" successfully joined "+channel);
+                activeChannels.get(i).addActiveUser(name);
                 return true;
             }
             else
@@ -71,7 +72,9 @@ public class ChatHandler implements ChatService.Iface {
                 i++;
             }
         }
-        activeChannels.add(channel);
+        Channel c = new Channel(channel);
+        c.addActiveUser(name);
+        activeChannels.add(c);
         System.out.println(name+" successfully joined "+channel);
         return true;
     }
