@@ -48,6 +48,10 @@ public class User {
         this.myChannels.add(channel);
     }
     
+    public void removeChannel (String channel)
+    {
+        this.myChannels.remove(this.myChannels.indexOf(channel));
+    }
     public boolean isEmpty()
     {
         return this.name.isEmpty();

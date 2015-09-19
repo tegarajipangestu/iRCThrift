@@ -22,6 +22,11 @@ public class Channel {
         activeUser.add(user);
     }
 
+    public void removeActiveUser(String user)
+    {
+        activeUser.remove(activeUser.indexOf(user));
+    }
+
     public Channel(String _name)
     {
         activeUser = new ArrayList<String>();

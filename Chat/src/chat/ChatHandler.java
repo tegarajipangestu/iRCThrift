@@ -56,7 +56,7 @@ public class ChatHandler implements ChatService.Iface {
 
     @Override
     public boolean joinChannel(String name, String channel) {
-        if (name.isEmpty()) return false;
+        if (name.isEmpty() || channel.isEmpty()) return false;
         System.out.println("calling join from "+name);
         int i = 0;
         while (i<activeChannels.size())
@@ -80,8 +80,28 @@ public class ChatHandler implements ChatService.Iface {
     }
 
     @Override
-    public boolean leaveChannel(String name, String channel) throws TException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean leaveChannel(String name, String channel) {
+        if (name.isEmpty() || channel.isEmpty()) return false;
+        System.out.println("calling leave from "+name);
+        int i = 0;
+        while (i<activeChannels.size())
+        {
+            System.out.println(activeChannels.get(i).getName());
+            System.out.println(channel);
+            if (activeChannels.get(i).getName().compareToIgnoreCase(channel)==0)
+            {
+                activeChannels.get(i).removeActiveUser(name);
+                System.out.println(name+" successfully left "+channel);
+                return true;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        System.out.println("Channel not found");
+        return false;
+
     }
 
     @Override

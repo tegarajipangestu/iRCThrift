@@ -73,7 +73,18 @@ public class ChatClient {
 
                 }
             }
+            else if (command.length() >= 6 && command.substring(0, 6).equals("/LEAVE") && !u.isEmpty()) {
+                System.out.println("Leave");
+                if (command.charAt(6) == ' ' && command.length() >= 8) {
+                    if (client.leaveChannel(u.getName(), command.substring(7, command.length()))) {
+                        u.removeChannel(command.substring(7, command.length()));
+                        System.out.println("Successfully left " + command.substring(7, command.length()));
+                    } else {
+                        System.out.println("Leave channel failed");
+                    }
 
+                }
+            }
             command = sc.nextLine();
         }
     }
