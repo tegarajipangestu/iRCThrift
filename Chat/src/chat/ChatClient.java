@@ -14,7 +14,6 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
-import chat.ChatService;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -38,15 +37,23 @@ public class ChatClient {
 
     private static void perform(ChatService.Client client)
             throws TException {
+        User u = new User();
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
         while(!command.equals("/EXIT")) {
             if(command.length()>=5 && command.substring(0,5).equals("/NICK")) {
                 if(command.length()==5) { //default username
-                    //belum diimplementasi di handler
+                    u.setName(client.createNickname(""));
                 }
                 else if(command.charAt(5) == ' ' && command.length()>=7) {
-                    System.out.println(client.createNickname(command.substring(7,command.length())));                    
+                    String name = client.createNickname(command.substring(6,command.length()));
+                    if(!name.equals("")) {
+                        u.setName(name);
+                    }
+                    else {
+                        System.out.println("Name was taken. Choose another name");
+                    }
+                    
                 }
             }
             command = sc.nextLine();

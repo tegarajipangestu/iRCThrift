@@ -21,9 +21,7 @@ public class User {
         this.name = name;
     }
     
-    public User() {
-//        this.name = defaultUsernames.get(new Random().nextInt((defaultUsernames.size() - 0) 
-    }
+    public User() {}
 
     public String getName() {
         return name;

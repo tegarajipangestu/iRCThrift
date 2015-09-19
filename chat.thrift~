@@ -6,6 +6,6 @@ service ChatService
 	bool leaveChannel(1:string name, 2:string channel)
 	bool exitProgram(1:string name)
 	bool sendMessage(1:string name, 2:string channel)
-	string get_message(1:string name)
+	string getMessage(1:string name)
 }
 

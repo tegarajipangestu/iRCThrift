@@ -10,7 +10,6 @@ package chat;
  * @author tegar
  */
 import org.apache.thrift.TException;
-import chat.ChatService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,21 +21,34 @@ public class ChatHandler implements ChatService.Iface {
 
     public ChatHandler() {
         defaultUsernames = new ArrayList<>(
-                Arrays.asList("Kucing", "Sapi", "Rusa")
+                Arrays.asList("Kucing", "Sapi", "Rusa","Kambing","Platipus")
         );
         activeUsers = new ArrayList<>();
     }
     
     @Override
-    public boolean createNickname(String name) {
-        //Tambah kasus default username, parameternya name=null aja
-        for(int i=0; i<activeUsers.size(); i++) {
-            if(name.equals(activeUsers.get(i))) {
-                return false;
+    public String createNickname(String name) {
+        String finalName = "";
+        if(name.equals("")) { //kasus random username, diasumsikan masih ada nama yang tersedia
+            int rndIdx = new Random().nextInt((defaultUsernames.size() - 0));
+            String potentialName = defaultUsernames.get(rndIdx); 
+            while(isUsernameExists(potentialName)) {
+                rndIdx = new Random().nextInt((defaultUsernames.size() - 0));
+                potentialName = defaultUsernames.get(rndIdx); 
+            }
+            defaultUsernames.remove(rndIdx);
+            finalName = potentialName;
+        }
+        else{
+            if(isUsernameExists(name)) {
+                return "";
+            }
+            else {
+                finalName = name;
             }
         }
-        activeUsers.add(name);
-        return true;
+        activeUsers.add(finalName);
+        return finalName;
     }
 
     @Override
@@ -64,5 +76,14 @@ public class ChatHandler implements ChatService.Iface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    //Utility functions
+    private boolean isUsernameExists(String name) {
+        for(int i=0; i<activeUsers.size(); i++) {
+            if(name.equals(activeUsers.get(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
