@@ -18,16 +18,19 @@ import java.util.Random;
 public class ChatHandler implements ChatService.Iface {
     public static List<String> defaultUsernames;
     public static List<String> activeUsers;
-
+    public static List<String> activeChannels;
+    
     public ChatHandler() {
         defaultUsernames = new ArrayList<>(
                 Arrays.asList("Kucing", "Sapi", "Rusa","Kambing","Platipus")
         );
         activeUsers = new ArrayList<>();
+        activeChannels = new ArrayList<String>();
     }
     
     @Override
     public String createNickname(String name) {
+        System.out.println("calling nick from "+name);
         String finalName = "";
         if(name.equals("")) { //kasus random username, diasumsikan masih ada nama yang tersedia
             int rndIdx = new Random().nextInt((defaultUsernames.size() - 0));
@@ -52,8 +55,25 @@ public class ChatHandler implements ChatService.Iface {
     }
 
     @Override
-    public boolean joinChannel(String name, String channel) throws TException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean joinChannel(String name, String channel) {
+        if (name.isEmpty()) return false;
+        System.out.println("calling join from "+name);
+        int i = 0;
+        while (i<activeChannels.size())
+        {
+            if (activeChannels.get(i).compareToIgnoreCase(channel)==0)
+            {
+                System.out.println(name+" successfully joined "+channel);
+                return true;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        activeChannels.add(channel);
+        System.out.println(name+" successfully joined "+channel);
+        return true;
     }
 
     @Override

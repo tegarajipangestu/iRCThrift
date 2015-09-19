@@ -5,6 +5,7 @@
  */
 package chat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -19,9 +20,13 @@ public class User {
 
     public User(String name) {
         this.name = name;
+        this.myChannels = new ArrayList<String>();
     }
     
-    public User() {}
+    public User() {
+        this.name = "";
+        this.myChannels = new ArrayList<String>();        
+    }
 
     public String getName() {
         return name;
@@ -42,5 +47,9 @@ public class User {
     public void addChannel(String channel) {
         this.myChannels.add(channel);
     }
-
+    
+    public boolean isEmpty()
+    {
+        return this.name.isEmpty();
+    }
 }

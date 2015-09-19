@@ -19,8 +19,9 @@ import java.util.Scanner;
 
 public class ChatClient {
 
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
+        
         try {
             TTransport transport;
 
@@ -40,22 +41,39 @@ public class ChatClient {
         User u = new User();
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
-        while(!command.equals("/EXIT")) {
-            if(command.length()>=5 && command.substring(0,5).equals("/NICK")) {
-                if(command.length()==5) { //default username
+        while (!command.equals("/EXIT")) {
+            if (command.length() >= 5 && command.substring(0, 5).equals("/NICK")) {
+                if (command.length() == 5) { //default username
                     u.setName(client.createNickname(""));
-                }
-                else if(command.charAt(5) == ' ' && command.length()>=7) {
-                    String name = client.createNickname(command.substring(6,command.length()));
-                    if(!name.equals("")) {
+                    System.out.println("Successfully created nickname "+u.getName());
+                } else if (command.charAt(5) == ' ' && command.length() >= 7) {
+                    String name = client.createNickname(command.substring(6, command.length()));
+                    if (!name.equals("")) {
                         u.setName(name);
-                    }
-                    else {
+                        System.out.println("Successfully created nickname "+u.getName());
+                    } else {
                         System.out.println("Name was taken. Choose another name");
                     }
-                    
+
+                }
+            } else if (command.length() >= 5 && command.substring(0, 5).equals("/JOIN") && !u.isEmpty()) {
+                System.out.println("Join");
+                if (command.length() == 5) { //default username
+                    if (client.joinChannel(u.getName(), "channelname")) {
+                        u.addChannel("channelname");
+                        System.out.println("Successfully joined channelname");
+                    }
+                } else if (command.charAt(5) == ' ' && command.length() >= 7) {
+                    if (client.joinChannel(u.getName(), command.substring(6, command.length()))) {
+                        u.addChannel(command.substring(6, command.length()));
+                        System.out.println("Successfully joined " + command.substring(6, command.length()));
+                    } else {
+                        System.out.println("Join channel failed");
+                    }
+
                 }
             }
+
             command = sc.nextLine();
         }
     }
