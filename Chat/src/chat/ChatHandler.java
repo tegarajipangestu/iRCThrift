@@ -11,11 +11,30 @@ package chat;
  */
 import org.apache.thrift.TException;
 import chat.ChatService;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ChatHandler implements ChatService.Iface {
+    public static List<String> defaultUsernames;
+    public static List<String> activeUsers;
 
+    public ChatHandler() {
+        defaultUsernames = new ArrayList<>(
+                Arrays.asList("Kucing", "Sapi", "Rusa")
+        );
+        activeUsers = new ArrayList<>();
+    }
+    
     @Override
-    public boolean createNickname(String name) { return true;
+    public boolean createNickname(String name) { 
+        for(int i=0; i<activeUsers.size(); i++) {
+            if(name.equals(activeUsers.get(i))) {
+                return false;
+            }
+        }
+        activeUsers.add(name);
+        return true;
     }
 
     @Override

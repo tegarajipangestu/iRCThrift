@@ -15,6 +15,7 @@ import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import chat.ChatService;
+import java.util.Scanner;
 
 public class ChatClient {
 
@@ -29,7 +30,6 @@ public class ChatClient {
             ChatService.Client client = new ChatService.Client(protocol);
             perform(client);
             transport.close();
-            while(true);
         } catch (TException x) {
             x.printStackTrace();
         }
@@ -37,6 +37,14 @@ public class ChatClient {
 
     private static void perform(ChatService.Client client)
             throws TException {
-        System.out.println(client.createNickname("huli"));
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter nickname : ");
+        String nick = sc.nextLine();
+        if(client.createNickname(nick)) {
+            System.out.println("OK");
+        }
+        else {
+            System.out.println("Name has been used");
+        }
     }
 }

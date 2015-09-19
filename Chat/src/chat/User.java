@@ -16,14 +16,13 @@ import java.util.Random;
 public class User {
     private String name;
     private List<String> myChannels;
-    public static List<String> defaultUsernames = Arrays.asList("Kucing", "Sapi", "Rusa");
 
     public User(String name) {
         this.name = name;
     }
     
     public User() {
-        this.name = defaultUsernames.get(new Random().nextInt((defaultUsernames.size() - 0) + 1));
+        //this.name = defaultUsernames.get(new Random().nextInt((defaultUsernames.size() - 0) 
     }
 
     public String getName() {

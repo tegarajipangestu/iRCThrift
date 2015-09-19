@@ -16,6 +16,7 @@ import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 import chat.ChatService;
 import org.apache.thrift.server.TThreadPoolServer;
+import chat.ChatHandler;
 
 public class ChatServer {
 
@@ -31,7 +32,6 @@ public class ChatServer {
                     simple(processor);
                 }
             };
-
             new Thread(simple).start();
         } catch (Exception x) {
             x.printStackTrace();
@@ -42,8 +42,7 @@ public class ChatServer {
         try {
             TServerTransport serverTransport = new TServerSocket(9090);
             TServer server = new TThreadPoolServer(new TThreadPoolServer.Args(serverTransport).processor(processor));
-            //TServer server = new TSimpleServer(new Args(serverTransport).processor(processor));
-            System.out.println("Starting the simple server...");
+            System.out.println("Starting the server...");
             server.serve();
         } catch (Exception e) {
             e.printStackTrace();
