@@ -14,6 +14,7 @@ import chat.ChatService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class ChatHandler implements ChatService.Iface {
     public static List<String> defaultUsernames;
@@ -27,7 +28,8 @@ public class ChatHandler implements ChatService.Iface {
     }
     
     @Override
-    public boolean createNickname(String name) { 
+    public boolean createNickname(String name) {
+        //Tambah kasus default username, parameternya name=null aja
         for(int i=0; i<activeUsers.size(); i++) {
             if(name.equals(activeUsers.get(i))) {
                 return false;

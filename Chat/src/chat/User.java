@@ -22,7 +22,7 @@ public class User {
     }
     
     public User() {
-        //this.name = defaultUsernames.get(new Random().nextInt((defaultUsernames.size() - 0) 
+//        this.name = defaultUsernames.get(new Random().nextInt((defaultUsernames.size() - 0) 
     }
 
     public String getName() {
