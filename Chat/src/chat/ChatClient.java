@@ -62,7 +62,7 @@ public class ChatClient {
                 }
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 5000); //execute in every 100 ms
+        timer.schedule(doAsynchronousTask, 0, 100); //execute in every 100 ms
 
         while (!command.equals("/EXIT")) {
             if (command.length() >= 5 && command.substring(0, 5).equals("/NICK")) {
@@ -116,10 +116,7 @@ public class ChatClient {
             }
             command = sc.nextLine();
         }
-        if (command.equals("/EXIT"))
-        {
-            timer.cancel();
-            timer.purge();
-        }
+        timer.cancel();
+        timer.purge();
     }
 }
