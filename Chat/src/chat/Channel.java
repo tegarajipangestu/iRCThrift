@@ -13,13 +13,14 @@ import java.util.List;
  * @author tegar
  */
 public class Channel {
-    public List<String> activeUser;
+    public List<User> activeUser;
     
     private String name;
-    
+            
     public void addActiveUser(String user)
     {
-        activeUser.add(user);
+        User u = new User(user);
+        activeUser.add(u);
     }
 
     public void removeActiveUser(String user)
@@ -29,7 +30,7 @@ public class Channel {
 
     public Channel(String _name)
     {
-        activeUser = new ArrayList<String>();
+        activeUser = new ArrayList<User>();
         name = new String(_name);
     }
 

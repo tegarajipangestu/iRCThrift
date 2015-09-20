@@ -6,9 +6,7 @@
 package chat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 /**
  *
@@ -17,15 +15,26 @@ import java.util.Random;
 public class User {
     private String name;
     private List<String> myChannels;
+    private List<String> messQueue;
+
+    public List<String> getMessQueue() {
+        return messQueue;
+    }
+
+    public void setMessQueue(List<String> messQueue) {
+        this.messQueue = messQueue;
+    }
 
     public User(String name) {
         this.name = name;
         this.myChannels = new ArrayList<String>();
+        messQueue = new ArrayList<String>();
     }
     
     public User() {
         this.name = "";
         this.myChannels = new ArrayList<String>();        
+        messQueue = new ArrayList<String>();
     }
 
     public String getName() {
@@ -55,5 +64,19 @@ public class User {
     public boolean isEmpty()
     {
         return this.name.isEmpty();
+    }
+    public void addMessage(String message)
+    {
+        //channelname - nickname - content
+        messQueue.add(message);
+    }
+    public String getAllMessage()
+    {
+        StringBuilder result = new StringBuilder();
+        while (!messQueue.isEmpty())
+        {
+            result.append(messQueue.remove(0)).append("\n");
+        }
+        return result.toString();
     }
 }

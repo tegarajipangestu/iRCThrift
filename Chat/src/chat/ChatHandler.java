@@ -19,6 +19,7 @@ public class ChatHandler implements ChatService.Iface {
     public static List<String> defaultUsernames;
     public static List<String> activeUsers;
     public static List<Channel> activeChannels;
+    public User currentUser;
     
     public ChatHandler() {
         defaultUsernames = new ArrayList<>(
@@ -26,6 +27,7 @@ public class ChatHandler implements ChatService.Iface {
         );
         activeUsers = new ArrayList<>();
         activeChannels = new ArrayList<Channel>();
+        currentUser = new User();
     }
     
     @Override
@@ -51,6 +53,7 @@ public class ChatHandler implements ChatService.Iface {
             }
         }
         activeUsers.add(finalName);
+        currentUser.setName(finalName);
         return finalName;
     }
 
@@ -75,6 +78,7 @@ public class ChatHandler implements ChatService.Iface {
         Channel c = new Channel(channel);
         c.addActiveUser(name);
         activeChannels.add(c);
+        currentUser.addChannel(channel);
         System.out.println(name+" successfully joined "+channel);
         return true;
     }
@@ -86,11 +90,10 @@ public class ChatHandler implements ChatService.Iface {
         int i = 0;
         while (i<activeChannels.size())
         {
-            System.out.println(activeChannels.get(i).getName());
-            System.out.println(channel);
             if (activeChannels.get(i).getName().compareToIgnoreCase(channel)==0)
             {
                 activeChannels.get(i).removeActiveUser(name);
+                currentUser.removeChannel(channel);
                 System.out.println(name+" successfully left "+channel);
                 return true;
             }
@@ -110,13 +113,43 @@ public class ChatHandler implements ChatService.Iface {
     }
 
     @Override
-    public boolean sendMessage(String name, String channel) throws TException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean sendMessage(String name, String channel, String message) {
+        String mesString = new String("["+channel+"] "+"("+name+") "+message);
+        int i = 0;
+        while (i<activeChannels.size())
+        {
+            if (activeChannels.get(i).getName().equals(channel))
+            {
+                for (int j=0;j<activeChannels.get(i).activeUser.size();j++)
+                {
+                    if (!activeChannels.get(i).activeUser.get(j).getName().equals(name))
+                    {
+                        activeChannels.get(i).activeUser.get(j).addMessage(mesString);                        
+                    }
+                }
+            }
+            i++;
+        }
+        return true;
     }
 
     @Override
-    public String getMessage(String name) throws TException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getMessage(String name){
+        StringBuilder msgBuilder = new StringBuilder();
+        for (int i=0;i<activeChannels.size();i++)
+        {
+            for (int j=0;j<activeChannels.get(i).activeUser.size();j++)
+            {
+                if (activeChannels.get(i).activeUser.get(j).getName().equals(name))
+                {
+                    if (!activeChannels.get(i).activeUser.get(j).getMessQueue().isEmpty())
+                    {
+                        msgBuilder.append(activeChannels.get(i).activeUser.get(j).getAllMessage());
+                    }
+                }
+            }
+        }
+        return msgBuilder.toString();
     }
 
     //Utility functions
