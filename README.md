@@ -1,5 +1,8 @@
 #iRCThrift
 
+Fauzan Hilmi Ramadhian - 13512003
+Tegar Aji Pangestu - 13512061
+
 ###Requirements
 ```java 1.8```
 

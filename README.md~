@@ -1,2 +1,30 @@
-# iRCThrift
-Custom iRC using Apache Thrift
+#iRCThrift
+
+Tegar Aji Pangestu - 13512061
+Fauzan Hilmi Ramadhian - 13512003
+
+###Requirements
+```java 1.8```
+
+###Cara melakukan instalasi
+Program telah dibuat sedemikian hingga tidak perlu melakukan instalasi
+
+###Cara melakukan test
+
+ 1. cd ke ```dist/```
+ 2.  Jalankan server dengan menjalankan file ```Chat.jar``` di folder ```server``` dengan :
+```java
+java -jar Chat.jar
+```
+ 3.  Jalankan dua client dengan menjalankan file ```Chat.jar``` di folder ```server``` dengan :
+```java
+java -jar Chat.jar
+```
+ 4. Ketik ```/NICK <username>``` untuk mendaftarkan username. Jika username kosong maka akan dibangkitkan secara otomatis
+ 5. Ketik ```/JOIN <channelname>``` untuk mendaftarkan diri ke sebuah channel. Jika nama channel kosong maka akan terdaftar otomatis ke  ```channelname```
+ 6. Kirimkan chat dengan mengetik ```@<channelname> <chatmessage>``` untuk mengetik pesan
+ 7. Voila!
+
+ 
+
+  
