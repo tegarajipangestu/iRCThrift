@@ -115,6 +115,7 @@ public class ChatHandler implements ChatService.Iface {
     @Override
     public boolean sendMessage(String name, String channel, String message) {
         String mesString = new String("["+channel+"] "+"("+name+") "+message);
+        System.out.println(name+" sending "+message+" to "+channel);
         int i = 0;
         while (i<activeChannels.size())
         {

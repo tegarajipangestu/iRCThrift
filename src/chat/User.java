@@ -7,6 +7,7 @@ package chat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  *
@@ -27,14 +28,14 @@ public class User {
 
     public User(String name) {
         this.name = name;
-        this.myChannels = new ArrayList<String>();
-        messQueue = new ArrayList<String>();
+        this.myChannels = new Vector<String>();
+        messQueue = new Vector<String>();
     }
     
     public User() {
         this.name = "";
-        this.myChannels = new ArrayList<String>();        
-        messQueue = new ArrayList<String>();
+        this.myChannels = new Vector<String>();        
+        messQueue = new Vector<String>();
     }
 
     public String getName() {

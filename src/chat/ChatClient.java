@@ -22,11 +22,14 @@ import java.util.logging.Logger;
 
 public class ChatClient {
 
+    public static String messString = new String();
+
     public static void main(String[] args) {
 
         try {
             TTransport transport;
-
+            messString = new String();
+            
             transport = new TSocket("localhost", 9090);
             transport.open();
             TProtocol protocol = new TBinaryProtocol(transport);
@@ -43,7 +46,6 @@ public class ChatClient {
         User u = new User();
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
-        String newLine = new String("\n");
         Timer timer = new Timer();
         TimerTask doAsynchronousTask = new TimerTask() {
             @Override
@@ -51,7 +53,7 @@ public class ChatClient {
                 try {
                     if (!u.isEmpty())
                     {
-                        String messString =  client.getMessage(u.getName());
+                        messString =  client.getMessage(u.getName());
                         if (!messString.isEmpty())
                         {
                             System.out.print(messString);                                                     
@@ -62,7 +64,7 @@ public class ChatClient {
                 }
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 100); //execute in every 100 ms
+        timer.schedule(doAsynchronousTask, 0, 1000); //execute in every 100 ms
 
         while (!command.equals("/EXIT")) {
             if (command.length() >= 5 && command.substring(0, 5).equals("/NICK")) {
