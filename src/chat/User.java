@@ -28,14 +28,14 @@ public class User {
 
     public User(String name) {
         this.name = name;
-        this.myChannels = new Vector<String>();
-        messQueue = new Vector<String>();
+        this.myChannels = new ArrayList<String>();
+        messQueue = new ArrayList<String>();
     }
     
     public User() {
         this.name = "";
-        this.myChannels = new Vector<String>();        
-        messQueue = new Vector<String>();
+        this.myChannels = new ArrayList<String>();        
+        messQueue = new ArrayList<String>();
     }
 
     public String getName() {
@@ -68,6 +68,7 @@ public class User {
     }
     public void addMessage(String message)
     {
+        System.out.println("User = "+message);
         //channelname - nickname - content
         messQueue.add(message);
     }

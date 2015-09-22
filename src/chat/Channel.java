@@ -25,7 +25,20 @@ public class Channel {
 
     public void removeActiveUser(String user)
     {
-        activeUser.remove(activeUser.indexOf(user));
+        System.out.println(user+" "+activeUser.indexOf(user));
+        boolean found = false;
+        int i = 0;
+        while (!found && i<activeUser.size())
+        {
+            if (activeUser.get(i).getName()==user)
+            {
+                found = true;
+            }
+            else
+            {
+                i++;
+            }
+        }
     }
 
     public Channel(String _name)

@@ -82,6 +82,7 @@ public class ChatClient {
 
                 }
             } else if (command.length() >= 5 && command.substring(0, 5).equals("/JOIN") && !u.isEmpty()) {
+                System.out.println("Join");
                 if (command.length() == 5) { //default username
                     if (client.joinChannel(u.getName(), "channelname")) {
                         u.addChannel("channelname");
@@ -96,15 +97,11 @@ public class ChatClient {
                     }
 
                 }
-                else
-                {
-                    System.out.println("Wrong format");
-                }
             } else if (command.length() >= 6 && command.substring(0, 6).equals("/LEAVE") && !u.isEmpty()) {
-                if (command.charAt(6) == ' ' && command.length() >= 8) {
-                    System.out.println(command.substring(7, command.length()));
-                    if (client.leaveChannel(u.getName(), command.substring(7, command.length()))) {
-                        u.removeChannel(command.substring(7, command.length()));
+                System.out.println("Leave");
+                if (command.charAt(7) == ' ' && command.length() >= 8) {
+                    if (client.leaveChannel(u.getName(), command.substring(8, command.length()))) {
+                        u.removeChannel(command.substring(8, command.length()));
                         System.out.println("Successfully left " + command.substring(7, command.length()));
                     } else {
                         System.out.println("Leave channel failed");
@@ -113,24 +110,12 @@ public class ChatClient {
                 }
             }
              else if (command.length() >= 4 && command.charAt(0) == ('@') && !u.isEmpty()) {
-                if (command.contains(" "))
+                String[] token = command.substring(1).split(" ");
+                if (token.length==2)
                 {
-                    String channelname = command.substring(1,command.indexOf(' '));
-                    String message = command.substring(command.indexOf(' ')+1,command.length());
-                    if (!client.sendMessage(u.getName(),channelname,message))
-                    {
-                        System.out.println("No channel found");
-                    }
-                }
-                else
-                {
-                    System.out.println("You didn't type the message");
+                    client.sendMessage(u.getName(),token[0],token[1]);                    
                 }
             }
-             else if (!u.isEmpty()) {
-                 client.sendMessage(u.getName(),"broadcast",command);
-            }
-
             command = sc.nextLine();
         }
         timer.cancel();
